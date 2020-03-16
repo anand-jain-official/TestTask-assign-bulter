@@ -2,16 +2,36 @@
 
 const assignToButler = (taskReq, butlers) => {
     butlers.forEach((butler, i) => {
-        if(butler.remainingHours >= taskReq.hours) {
+        if(butler.remainingHours >= taskReq.hours && !taskReq.assigned) {
             butlers[i] = {
                 requests: [...butlers[i].requests, taskReq.requestId],
                 remainingHours: butler.remainingHours - taskReq.hours
             }
-        } else if( i === butlers.length - 1 ) {
-            butlers.push({
-                requests: [taskReq.requestId],
-                remainingHours: 8 - taskReq.hours
-            })
+            taskReq.assigned = true;
+        } else if( i === butlers.length - 1 && !taskReq.assigned ) {
+            if(taskReq.hours <= 8) {
+                butlers.push({
+                    requests: [taskReq.requestId],
+                    remainingHours: 8 - taskReq.hours
+                })
+            } else {
+                const splicount = Math.ceil(taskReq.hours/8);
+                let taskHrs = 0;
+                butlers.push(...[...new Array(splicount)].map(i => {
+                    let hr = 0;
+                    if(taskReq.hours - taskHrs > 8) {
+                        hr = 8;
+                        taskHrs += 8;
+                    } else {
+                        hr = taskReq.hours - taskHrs
+                    }
+                    return {
+                        requests: [taskReq.requestId],
+                        remainingHours: hr
+                    }
+                }))
+            }
+            taskReq.assigned = true;
         }
     })
 }
@@ -21,20 +41,8 @@ module.exports = function allocateAndReport(requests) {
     const clientIds = [];
     requests.forEach(taskReq => {
         clientIds.push(taskReq.clientId);
-        if(taskReq.hours < 8) {
-            assignToButler(taskReq, butlers);
-        } else {
-            const splitCount = Math.ceil(taskReq.hours / 8);
-            let i = 0;
-            while (i < splitCount) {
-                const taskObj = {
-                    ...taskReq,
-                    hours: Math.ceil(taskReq.hours / splitCount)
-                }
-                assignToButler(taskObj);
-                i++;
-            }
-        }
+        taskReq.assigned = false;
+        assignToButler(taskReq, butlers);
     })
     return {
         butlers,

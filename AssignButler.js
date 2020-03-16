@@ -39,6 +39,7 @@ const assignToButler = (taskReq, butlers) => {
 module.exports = function allocateAndReport(requests) {
     const butlers = [{ requests: [], remainingHours: 8 }]; // Initial butler Array
     const clientIds = [];
+    requests = requests.sort((a,b) => b.hours - a.hours); // Sort for better butler utilization
     requests.forEach(taskReq => {                         // Looping through the requests
         clientIds.push(taskReq.clientId);
         taskReq.assigned = false;

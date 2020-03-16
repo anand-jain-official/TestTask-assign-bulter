@@ -31,7 +31,7 @@ describe('POST /assign-butlers', function() {
         })
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(200, {"butlers":[{"requests":["abc","ghi"],"remainingHours":1},{"requests":["def","zzz"],"remainingHours":2}],"spreadClientIds":[1,2]} ,done);
+        .expect(200, {"butlers":[{"requests":["abc","zzz"],"remainingHours":0},{"requests":["def","ghi"],"remainingHours":3}],"spreadClientIds":[1,2]} ,done);
     });
 
     it('a request of hours greater than 8', function(done) {
@@ -63,6 +63,6 @@ describe('POST /assign-butlers', function() {
         })
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(200, {"butlers":[{"requests":["abc"],"remainingHours":0},{"requests":["abc"],"remainingHours":0},{"requests":["abc","ghi","zzz"],"remainingHours":0},{"requests":["def"],"remainingHours":4}],"spreadClientIds":[1,2]} ,done);
+        .expect(200, {"butlers":[{"requests":["abc"],"remainingHours":0},{"requests":["abc"],"remainingHours":0},{"requests":["abc","zzz","ghi"],"remainingHours":0},{"requests":["def"],"remainingHours":4}],"spreadClientIds":[1,2]} ,done);
     });
   });

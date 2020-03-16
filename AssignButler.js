@@ -27,7 +27,7 @@ const assignToButler = (taskReq, butlers) => {
                     }
                     return {
                         requests: [taskReq.requestId],
-                        remainingHours: hr
+                        remainingHours: 8 - hr
                     }
                 }))
             }

@@ -30,7 +30,7 @@ app.post('/assign-butlers', (req, res) => {
 
 /* Server */
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`Assign Butlers server listening on port ${port}!`));
 
 /* Exports */
 exports.app = app;

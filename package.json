@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
@@ -21,9 +21,11 @@
   "homepage": "https://github.com/anand-jain-official/TestTask-assign-bulter#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "supertest": "^4.0.2"
   },
   "devDependencies": {
+    "mocha": "^7.1.0",
     "nodemon": "^2.0.2"
   }
 }

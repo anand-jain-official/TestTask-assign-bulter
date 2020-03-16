@@ -3,8 +3,8 @@
 const assignToButler = (taskReq, butlers) => {
     butlers.forEach((butler, i) => {
         if(butler.remainingHours >= taskReq.hours) {
-            butler[i] = {
-                requests: [...butler[i].requests, taskReq.requestId],
+            butlers[i] = {
+                requests: [...butlers[i].requests, taskReq.requestId],
                 remainingHours: butler.remainingHours - taskReq.hours
             }
         } else if( i === butlers.length - 1 ) {

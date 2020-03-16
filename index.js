@@ -14,14 +14,21 @@ app.use(bodyParser.json())
 
 /* Routes */
 
+app.get('/', (req, res) => {
+    res.send('Please POST to /assign-butlers with the requests in body');
+});
+
 app.get('/ping', (req, res) => {
     res.send('pong');
-})
+});
 
-app.get('/assign-butlers', (req, res) => {
-    res.send(AssignButler(req.body.requests));
-})
+app.post('/assign-butlers', (req, res) => {
+    res.json(AssignButler(req.body.requests));
+});
 
 /* Server */
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
+/* Exports */
+exports.app = app;

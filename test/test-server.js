@@ -42,7 +42,7 @@ describe('POST /assign-butlers', function() {
             {
                 clientId: 1,
                 requestId: 'abc',
-                hours: 17
+                hours: 21
             },
             {
                 clientId: 2,
@@ -63,6 +63,6 @@ describe('POST /assign-butlers', function() {
         })
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(200, {"butlers":[{"requests":["ghi","def","zzz"],"remainingHours":1},{"requests":["abc"],"remainingHours":8},{"requests":["abc"],"remainingHours":8},{"requests":["abc"],"remainingHours":1}],"spreadClientIds":[1,2]} ,done);
+        .expect(200, {"butlers":[{"requests":["abc"],"remainingHours":0},{"requests":["abc"],"remainingHours":0},{"requests":["abc","ghi","zzz"],"remainingHours":0},{"requests":["def"],"remainingHours":4}],"spreadClientIds":[1,2]} ,done);
     });
   });

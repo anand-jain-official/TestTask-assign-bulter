@@ -17,7 +17,7 @@ const assignToButler = (taskReq, butlers) => {
             } else {
                 const splicount = Math.ceil(taskReq.hours/8);
                 let taskHrs = 0;
-                butlers.push(...[...new Array(splicount)].map(i => {
+                [...new Array(splicount)].forEach((el, i) => {
                     let hr = 0;
                     if(taskReq.hours - taskHrs > 8) {
                         hr = 8;
@@ -25,11 +25,11 @@ const assignToButler = (taskReq, butlers) => {
                     } else {
                         hr = taskReq.hours - taskHrs
                     }
-                    return {
-                        requests: [taskReq.requestId],
-                        remainingHours: 8 - hr
-                    }
-                }))
+                    assignToButler({
+                        ...taskReq,
+                        hours: hr
+                    }, butlers);
+                })
             }
             taskReq.assigned = true;
         }

@@ -1,3 +1,5 @@
+// My custom solution to a psuedo-knapsack problem
+
 const assignToButler = (taskReq, butlers) => {
     butlers.forEach((butler, i) => {
         if(butler.remainingHours >= taskReq.hours) {

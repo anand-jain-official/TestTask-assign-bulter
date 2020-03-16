@@ -2,6 +2,7 @@
 const express = require('express')
 const app = express();
 const port = 5000;
+const bodyParser = require('body-parser');
 const AssignButler = require('./AssignButler');
 
 /* Middlewares */
@@ -12,6 +13,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 /* Routes */
+
+app.get('/ping', (req, res) => {
+    res.send('pong');
+})
 
 app.get('/assign-butlers', (req, res) => {
     res.send(AssignButler(req.body.requests));

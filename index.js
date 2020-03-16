@@ -3,6 +3,7 @@ const express = require('express')
 const app = express();
 const port = 5000;
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const AssignButler = require('./AssignButler');
 
 /* Middlewares */
@@ -10,7 +11,8 @@ const AssignButler = require('./AssignButler');
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use(cors());
 
 /* Routes */
 
@@ -23,7 +25,7 @@ app.get('/ping', (req, res) => {
 });
 
 app.post('/assign-butlers', (req, res) => {
-    res.json(AssignButler(req.body.requests));
+    res.json(AssignButler(JSON.parse(req.body.requests)));
 });
 
 /* Server */

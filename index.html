@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Assign Butlers</h2>
+  <label for="requests JSON">Requests IN JSON form</label><br>
+  <input type="text" id="requestData" name="requests" value='[
+  {
+     "clientId": 1,
+     "requestId": "abc",
+     "hours": 6
+  },
+  {
+     "clientId": 2,
+     "requestId": "ghi",
+     "hours": 1
+  },
+  {
+     "clientId": 1,
+     "requestId": "def",
+     "hours": 4
+  },
+  {
+     "clientId": 1,
+     "requestId": "zzz",
+     "hours": 2
+  }
+]'><br>
+  <button onclick="submitform()">Submit</button>
+<p id="response"></p>
+<script>
+    function submitform() {
+        const data = document.getElementById('requestData').value;
+        var opts = {
+          method: 'POST',      
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              requests: data
+          })
+        };
+        fetch('http://localhost:5000/assign-butlers', opts).then(function (response) {
+          return response.json();
+        })
+        .then(function (body) {
+          document.getElementById("response").innerText= JSON.stringify(body);
+          console.log(body)
+        }).catch(err => console.log(err));
+    }
+</script>
+</body>
+</html>

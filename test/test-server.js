@@ -6,7 +6,7 @@ describe('POST /assign-butlers', function() {
       request(app)
         .post('/assign-butlers')
         .send({
-          requests: [
+          requests: JSON.stringify([
             {
                 clientId: 1,
                 requestId: 'abc',
@@ -27,7 +27,7 @@ describe('POST /assign-butlers', function() {
                 requestId: 'zzz',
                 hours: 2
             }
-            ]
+            ])
         })
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
